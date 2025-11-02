@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renewable Energy Systems Portfolio - Aby Joseph</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.3);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 0 25px 30px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .sidebar-header h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .sidebar-header p {
+            font-size: 13px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .developer-info {
+            padding: 20px 25px;
+            background: rgba(255,255,255,0.1);
+            margin: 20px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .developer-info h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #4CAF50;
+        }
+
+        .developer-info p {
+            margin: 6px 0;
+            opacity: 0.95;
+        }
+
+        .developer-info strong {
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .nav-menu li {
+            margin: 5px 0;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 15px 25px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            font-size: 15px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.1);
+            border-left-color: #4CAF50;
+            padding-left: 30px;
+        }
+
+        .nav-menu a.active {
+            background: rgba(255,255,255,0.15);
+            border-left-color: #4CAF50;
+            font-weight: 600;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            padding: 40px 50px;
+            overflow-y: auto;
+        }
+
+        .activity-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .activity-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .activity-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .activity-header h2 {
+            font-size: 32px;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .activity-header .subtitle {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .diagram-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .diagram-container h3 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .diagram {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .flow-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            min-width: 250px;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .flow-box.source {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+
+        .flow-box.process {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+        }
+
+        .flow-box.output {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+        }
+
+        .arrow {
+            font-size: 30px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .explanation {
+            background: white;
+            border-left: 4px solid #4CAF50;
+            padding: 25px;
+            margin: 30px 0;
+            line-height: 1.8;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .explanation h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .explanation p {
+            color: #444;
+            font-size: 15px;
+            text-align: justify;
+        }
+
+        .key-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature-card h4 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .feature-card p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Home Section */
+        .home-section {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .home-section h1 {
+            font-size: 42px;
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        .home-section p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 20px;
+            padding: 50px 30px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(33, 150, 243, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -50px;
+            left: -50px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-20px) translateX(20px); }
+        }
+
+        .energy-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .energy-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .energy-icon:nth-child(2) {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            animation-delay: 0.3s;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+        }
+
+        .energy-icon:nth-child(3) {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            animation-delay: 0.6s;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .intro-text {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+
+        .intro-text h2 {
+            color: #1e3c72;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .intro-text p {
+            color: #555;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .activity-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .activity-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .activity-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .activity-card p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .flow-box {
+                min-width: 200px;
+                padding: 15px 20px;
+            }
+
+            .home-section h1 {
+                font-size: 32px;
+            }
+
+            .activity-header h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h1>FT-IV Portfolio</h1>
+                <p>Renewable Energy Systems Design & Applications</p>
+            </div>
+            
+            <div class="developer-info">
+                <h4>👨‍💻 Developer</h4>
+                <p><strong>Aby Joseph</strong></p>
+                <p>BTech with Specialization in AI/ML</p>
+                <p>📧 aj7137@srmist.edu.in</p>
+                <p>📱 +91 7304301721</p>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active" data-section="home">🏠 Home</a></li>
+                <li><a href="#activity1" class="nav-link" data-section="activity1">🌊 Wave Energy</a></li>
+                <li><a href="#activity2" class="nav-link" data-section="activity2">🌾 Biomass Biogas</a></li>
+                <li><a href="#activity3" class="nav-link" data-section="activity3">🌋 Geothermal Power</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="activity-section active">
+                <div class="home-section">
+                    <div class="hero-section">
+                        <div class="hero-content">
+                            <h1>🌍 Renewable Energy Systems Portfolio</h1>
+                            <p>Harnessing Nature's Power for a Sustainable Future</p>
+                            
+                            <div class="energy-icons">
+                                <div class="energy-icon">🌊</div>
+                                <div class="energy-icon">🌾</div>
+                                <div class="energy-icon">🌋</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intro-text">
+                        <h2>Welcome to the Future of Clean Energy</h2>
+                        <p>Our planet faces unprecedented energy challenges. As global energy demand continues to rise and climate change accelerates, the transition to renewable energy sources has become not just an option, but a necessity. This portfolio explores three innovative approaches to clean energy generation that harness the power of nature itself.</p>
+                        
+                        <p>From the endless motion of ocean waves to the natural decomposition of organic matter, and from the Earth's internal heat to sustainable electricity generation – each system represents a step toward energy independence and environmental stewardship. These technologies don't just generate power; they create integrated solutions that address multiple challenges simultaneously: energy security, water scarcity, waste management, and carbon emissions reduction.</p>
+                        
+                        <p>Each renewable energy system showcased here demonstrates the integration of natural energy sources with modern conversion technologies, proving that sustainable development and technological advancement can work hand in hand. These aren't just concepts – they're practical, implementable solutions for real-world energy challenges.</p>
+                    </div>
+                    
+                    <div class="activity-cards">
+                        <div class="activity-card" data-section="activity1">
+                            <h3>🌊 Wave Energy Conversion</h3>
+                            <p>Integrated coastal desalination plant powered by ocean wave energy. Harness the ocean's endless motion to produce both electricity and fresh water for coastal communities.</p>
+                        </div>
+                        <div class="activity-card" data-section="activity2">
+                            <h3>🌾 Biomass Biogas System</h3>
+                            <p>Sustainable biogas generation for dairy farm operations. Transform agricultural waste into valuable energy while producing organic fertilizer for crops.</p>
+                        </div>
+                        <div class="activity-card" data-section="activity3">
+                            <h3>🌋 Geothermal Power Plant</h3>
+                            <p>Electricity generation from hot water well resources. Tap into Earth's internal heat for reliable, baseload renewable power generation.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Activity 1: Wave Energy -->
+            <section id="activity1" class="activity-section">
+                <div class="activity-header">
+                    <h2>Activity 1: Wave Energy Conversion System</h2>
+                    <p class="subtitle">Integrated Coastal Desalination Plant</p>
+                </div>
+
+                <div class="diagram-container">
+                    <h3>System Architecture Block Diagram</h3>
+                    <div class="diagram">
+                        <div class="flow-diagram">
+                            <div class="flow-box source">Ocean Wave Energy</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Wave Energy Converter (WEC)<br><small>Oscillating Water Column / Point Absorber</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Hydraulic System<br><small>Pressure Conversion</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Turbine Generator<br><small>Mechanical to Electrical</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Power Conditioning Unit<br><small>AC/DC Conversion & Stabilization</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box output">Reverse Osmosis Desalination Plant<br><small>High-pressure pumps powered</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box output">Freshwater Output + Grid Export</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <h3>System Explanation</h3>
+                    <p>The wave energy conversion system harnesses kinetic and potential energy from ocean waves to power a coastal desalination plant. Ocean waves, generated by wind energy transfer, provide a consistent renewable energy source with power densities ranging from 2 to 3 kW per meter of wave front. The system employs an Oscillating Water Column (OWC) or Point Absorber device that captures wave motion and converts it into mechanical energy through hydraulic pressure systems. This hydraulic pressure drives a turbine generator, producing electricity that is conditioned and stabilized through power electronics. The generated electricity primarily powers the energy-intensive reverse osmosis desalination process, which requires high-pressure pumps to force seawater through semi-permeable membranes, producing potable water. This integration is particularly advantageous for coastal communities facing both water scarcity and energy challenges, as wave energy is most abundant in coastal regions where desalination needs are highest. Excess electricity can be exported to the local grid, providing additional revenue streams. The system offers environmental benefits by reducing fossil fuel dependence and carbon emissions while addressing critical freshwater supply needs in coastal areas.</p>
+                </div>
+
+                <div class="key-features">
+                    <div class="feature-card">
+                        <h4>Energy Source</h4>
+                        <p>Ocean waves with 2-3 kW/m power density, providing consistent renewable energy</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Conversion Process</h4>
+                        <p>Wave motion → Hydraulic pressure → Mechanical rotation → Electrical generation</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Application</h4>
+                        <p>Powers coastal desalination plants providing freshwater for 5,000-10,000 residents</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Sustainability</h4>
+                        <p>Zero emissions, minimal environmental impact, addresses water-energy nexus</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Activity 2: Biomass Biogas -->
+            <section id="activity2" class="activity-section">
+                <div class="activity-header">
+                    <h2>Activity 2: Biomass Biogas Generation System</h2>
+                    <p class="subtitle">Dairy Farm with 100 Cattle</p>
+                </div>
+
+                <div class="diagram-container">
+                    <h3>System Architecture Block Diagram</h3>
+                    <div class="diagram">
+                        <div class="flow-diagram">
+                            <div class="flow-box source">Cattle Waste (Manure & Organic Material)<br><small>~1,500 kg/day from 100 cattle</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Collection & Mixing Tank<br><small>Waste + Water (1:1 ratio)</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Anaerobic Digester<br><small>40-day retention, 35-37°C</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Biogas Production<br><small>60% CH₄, 40% CO₂ (150-180 m³/day)</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Gas Purification & Storage<br><small>H₂S removal, moisture control</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box output">Utilization Systems</div>
+                            <div class="arrow">↓</div>
+                            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                                <div class="flow-box output" style="min-width: 200px;">Cooking Fuel<br><small>Farm kitchen</small></div>
+                                <div class="flow-box output" style="min-width: 200px;">Biogas Generator<br><small>30-40 kW electricity</small></div>
+                                <div class="flow-box output" style="min-width: 200px;">Water Heating<br><small>Dairy operations</small></div>
+                            </div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box source">Bio-slurry Output<br><small>Organic fertilizer for crops</small></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <h3>System Explanation</h3>
+                    <p>The biomass-based biogas generation system transforms organic waste from a 100-cattle dairy farm into valuable energy and fertilizer products through anaerobic digestion. A typical dairy cow produces approximately 15 kilograms of manure daily, resulting in 1,500 kg total daily waste for the farm. This organic biomass is collected and mixed with water in a 1:1 ratio before being fed into an anaerobic digester maintained at mesophilic temperatures of 35-37°C. Within the oxygen-free digester environment, specialized microorganisms break down organic matter through four stages: hydrolysis, acidogenesis, acetogenesis, and methanogenesis, producing biogas composed primarily of methane (60%) and carbon dioxide (40%). The system generates approximately 150-180 cubic meters of biogas daily, with an energy content equivalent to 90-100 liters of diesel. After purification to remove hydrogen sulfide and moisture, the biogas serves multiple purposes: cooking fuel for the farm household, electricity generation through a biogas generator producing 30-40 kW for farm operations including milking machines and refrigeration, and water heating for dairy sanitation processes. The residual bio-slurry serves as high-quality organic fertilizer rich in nitrogen, phosphorus, and potassium, closing the nutrient cycle. This integrated system reduces dependence on fossil fuels, decreases greenhouse gas emissions from waste decomposition, improves farm hygiene, and creates additional revenue streams, making dairy operations more sustainable and economically viable.</p>
+                </div>
+
+                <div class="key-features">
+                    <div class="feature-card">
+                        <h4>Feedstock</h4>
+                        <p>1,500 kg daily cattle manure + organic farm waste from 100 cattle</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Biogas Production</h4>
+                        <p>150-180 m³/day biogas (60% CH₄) equivalent to 90-100 L diesel</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Energy Output</h4>
+                        <p>30-40 kW electricity + cooking fuel + water heating for dairy operations</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Co-products</h4>
+                        <p>High-quality organic fertilizer (bio-slurry) for agricultural use</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Activity 3: Geothermal Power -->
+            <section id="activity3" class="activity-section">
+                <div class="activity-header">
+                    <h2>Activity 3: Geothermal Power Plant System</h2>
+                    <p class="subtitle">Hot Water Well Based Electricity Generation</p>
+                </div>
+
+                <div class="diagram-container">
+                    <h3>System Architecture Block Diagram</h3>
+                    <div class="diagram">
+                        <div class="flow-diagram">
+                            <div class="flow-box source">Geothermal Reservoir<br><small>Hot water wells (150-200°C)</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Production Wells<br><small>Deep drilling extraction</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Separator Unit<br><small>Steam-water separation</small></div>
+                            <div class="arrow">↓</div>
+                            <div style="display: flex; gap: 20px; justify-content: center;">
+                                <div class="flow-box process" style="min-width: 180px;">Steam Line</div>
+                                <div class="flow-box process" style="min-width: 180px;">Hot Water Line</div>
+                            </div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Binary Cycle System<br><small>Heat exchanger + Working fluid (Isobutane/R134a)</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Vapor Turbine<br><small>Mechanical rotation</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Generator<br><small>Electromagnetic induction</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box output">Electricity Output (5-10 MW)<br><small>Grid connection</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Condenser<br><small>Cooling tower, working fluid recovery</small></div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-box process">Re-injection Wells<br><small>Cooled water returned to reservoir</small></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <h3>System Explanation</h3>
+                    <p>The geothermal power plant harnesses Earth's internal heat stored in hot water reservoirs to generate clean, baseload electricity. Hot water at temperatures of 150-200°C is extracted from deep production wells drilled 1-3 kilometers into geothermal reservoirs formed by tectonic activity and magmatic intrusions. The extracted geothermal fluid passes through a separator where steam and hot water are divided. For moderate-temperature resources, a binary cycle system is most efficient: hot geothermal water flows through heat exchangers where it transfers thermal energy to a secondary working fluid with a low boiling point such as isobutane or R-134a. This working fluid vaporizes at relatively low temperatures, and the resulting high-pressure vapor drives a turbine connected to an electromagnetic generator, producing electricity typically in the 5-10 MW range per unit. After expanding through the turbine, the working fluid vapor passes through a condenser where cooling water converts it back to liquid for recirculation. The cooled geothermal water is re-injected into the reservoir through injection wells, maintaining reservoir pressure and ensuring long-term sustainability. This closed-loop system provides continuous baseload power with capacity factors exceeding 90%, operates 24/7 regardless of weather conditions, produces minimal greenhouse gas emissions, and has a small surface footprint compared to other power generation methods. Geothermal plants are particularly valuable for regions with accessible geothermal resources, providing energy independence and long-term cost stability with operational lifespans of 30-50 years.</p>
+                </div>
+
+                <div class="key-features">
+                    <div class="feature-card">
+                        <h4>Heat Source</h4>
+                        <p>Hot water wells at 150-200°C from geothermal reservoirs 1-3 km deep</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Technology</h4>
+                        <p>Binary cycle system using low-boiling-point working fluids for heat conversion</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Power Output</h4>
+                        <p>5-10 MW baseload electricity with 90%+ capacity factor, 24/7 operation</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Sustainability</h4>
+                        <p>Closed-loop re-injection system, minimal emissions, 30-50 year lifespan</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.activity-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Add active class to clicked nav link
+            const activeLink = document.querySelector(`a[data-section="${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Scroll to top of main content
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.scrollTop = 0;
+            }
+        }
+
+        // Event delegation for navigation links
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = link.getAttribute('data-section');
+                    showSection(sectionId);
+                    // Update URL without reload
+                    history.pushState(null, '', `#${sectionId}`);
+                });
+            });
+
+            // Handle activity cards
+            document.querySelectorAll('.activity-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const sectionId = card.getAttribute('data-section');
+                    showSection(sectionId);
+                    // Update URL without reload
+                    history.pushState(null, '', `#${sectionId}`);
+                });
+            });
+
+            // Handle initial page load with hash
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                showSection(hash);
+            }
+
+            // Handle browser back/forward
+            window.addEventListener('popstate', () => {
+                const hash = window.location.hash.substring(1) || 'home';
+                showSection(hash);
+            });
+        });
+    </script>
+</body>
+</html>

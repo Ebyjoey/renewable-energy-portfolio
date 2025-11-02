@@ -6,10 +6,7 @@ A comprehensive interactive portfolio showcasing three innovative renewable ener
 
 ## 🚀 Live Demo
 
-**[View Live Portfolio](https://YOUR-USERNAME.github.io/renewable-energy-portfolio/)**
-
-Replace `YOUR-USERNAME` with your actual GitHub username!
-
+https://ebyjoey.github.io/renewable-energy-portfolio/
 ---
 
 ## 📋 About the Project
